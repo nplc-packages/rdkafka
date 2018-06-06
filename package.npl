@@ -9,6 +9,6 @@
   ["dependencies"] = {
   },
   ["author"] = "William0911",
-  ["name"] = "nplrdkafka",
+  ["name"] = "rdkafka",
   ["description"] = "NPL kafka client",
 }
