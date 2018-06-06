@@ -23,7 +23,7 @@ function _M.concat_table(t)
 end
 
 function _M.get_bin_location()
-  local package = NPL.PackageManager.package_info("rdkafka")
+  local package = NPL.PackageManager.package_info("nplrdkafka")
   local install_dir = package.install_dir
   local bin_location = _M.concat(install_dir, 'bin/librdkafka.so.1')
   return bin_location
