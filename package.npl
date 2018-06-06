@@ -1,0 +1,14 @@
+
+{
+  ["keywords"] = {
+    [1] = "kafka",
+    [2] = "client"
+  },
+  ["version"] = "0.1.0",
+  ["rendme"] = "README.md",
+  ["dependencies"] = {
+  },
+  ["author"] = "William0911",
+  ["name"] = "nplrdkafka",
+  ["description"] = "NPL kafka client",
+}
