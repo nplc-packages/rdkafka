@@ -92,6 +92,6 @@ function KafkaProducer:outq_len()
     return self.client:outq_len()
 end
 
-function KafkaProducer.thread_cnt()
+function KafkaProducer:thread_cnt()
     return self.client.rd_kafka_thread_cnt()
 end
