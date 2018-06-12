@@ -1,3 +1,5 @@
+NPL.load("(gl)script/ide/timer.lua")
+
 local rdkafka = {
     producer_config = require 'rdkafka/config',
     producer  = require 'rdkafka/producer',
@@ -94,4 +96,17 @@ end
 
 function KafkaProducer:thread_cnt()
     return self.client.rd_kafka_thread_cnt()
+end
+
+function KafkaProducer:start_poll_loop(cycle_ms, timeout_ms)
+    self.timer = self.timer or commonlib.Timer:new({callbackFunc = function(timer)
+        if self:outq_len() ~= 0 then
+            self:poll(timeout_ms or 0)
+        end
+    end})
+	self.timer:Change(0, cycle_ms or 50)
+end
+
+function KafkaProducer:stop_poll_loop()
+    self.timer:Change()
 end
