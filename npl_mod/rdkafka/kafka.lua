@@ -31,6 +31,10 @@ function KafkaTopicCreator.create_config(options)
 end
 
 
+function KafkaProducer:ctor()
+    self.topics = {}
+end
+
 function KafkaProducer:init(brokers, event_callbacks, options)
     self:bind_client(brokers, event_callbacks, options)
     return self
@@ -44,7 +48,6 @@ function KafkaProducer:bind_client(brokers, event_callbacks, options)
 end
 
 function KafkaProducer:bind_topic(topic_name, options)
-    self.topics = self.topics or {}
     self.topics[topic_name] = KafkaTopicCreator.create_topic(
         topic_name, self.client, options)
 end
@@ -83,6 +86,16 @@ end
 
 function KafkaProducer:produce(params)
     self.client:produce(params.topic, params.partition, params.payload, params.key)
+end
+
+function KafkaProducer:send(params)
+    assert(self.topics[params.topic], 'this topic is not bound')
+    self:produce({
+        topic = self.topics[params.topic],
+        partition = params.partition,
+        payload = params.payload,
+        key = params.key
+    })
 end
 
 function KafkaProducer:poll(timeout_ms)
