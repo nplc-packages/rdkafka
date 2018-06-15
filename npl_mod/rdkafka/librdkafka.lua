@@ -1,5 +1,4 @@
 local ffi = require('ffi')
-local utils = require('./utils')
 
 ffi.cdef[[
     typedef struct rd_kafka_s rd_kafka_t;
@@ -69,5 +68,5 @@ ffi.cdef[[
 ]]
 
 local bin_location = utils.get_bin_location()
-local librdkafka = ffi.load(bin_location)
+local librdkafka = ffi.load('librdkafka.so.1')
 return librdkafka
